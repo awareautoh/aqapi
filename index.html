@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<link rel="stylesheet" type="text/css" href="https://awareautoh.github.io/phetsalathFont/style.css" rel="stylesheet">
+<meta charset="UTF-8">
+<style type="text/css">
+.box{
+	display: block;
+    height: 90px;
+    width: 90px;
+    line-height: 90px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+    color: #000;
+    text-align: center;
+    font-size: 3em;
+    font-family: 'BoonBaan';
+}
+.main{
+	 font-family: 'BoonBaan';
+}
+.g{
+   
+    border: 10px solid #009966;
+
+}
+.m{
+    
+    border: 10px solid #FFDE33;
+
+}
+.us{
+    
+    border: 10px solid #FF9933;
+
+}
+.u{
+   
+    border: 10px solid #CC0033;
+
+}
+.vu{
+    
+    border: 10px solid #660099;
+
+}
+.h{
+   
+    border: 10px solid #7E0023;
+
+}
+
+body{
+	font-family: 'BoonBaan';
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+	<div class="main" v-if="json.data.aqi>0 && json.data.aqi < 50">
+		Good
+		<span class="box g">{{ json.data.aqi }}</span> 
+    <pre>ນະຄອນຫຼວງວຽງຈັນ</pre>
+    <pre>ອັບເດດຫຼ້າສຸດ: {{ json.data.time.s }}</pre>
+	</div>
+	<div class="main" v-if="json.data.aqi>=50 && json.data.aqi <= 100">
+		
+		<span class="box m">{{ json.data.aqi }}</span> 
+		<span>Moderate</span>
+    <pre>ນະຄອນຫຼວງວຽງຈັນ</pre>
+    <pre>ອັບເດດຫຼ້າສຸດ: {{ json.data.time.s }}</pre>
+	</div>
+	<div class="main" v-if="json.data.aqi>=101 && json.data.aqi <= 150">
+		Unhealthy for sensitive group
+		<span class="box us">{{ json.data.aqi }}</span> 
+    <pre>ນະຄອນຫຼວງວຽງຈັນ</pre>
+    <pre>ອັບເດດຫຼ້າສຸດ: {{ json.data.time.s }}</pre>
+	</div>
+	<div class="main" v-if="json.data.aqi>=151 && json.data.aqi <= 200">
+		Unhealthy
+		<span class="box u">{{ json.data.aqi }}</span> 
+    <pre>ນະຄອນຫຼວງວຽງຈັນ</pre>
+    <pre>ອັບເດດຫຼ້າສຸດ: {{ json.data.time.s }}</pre>
+	</div>
+	<div class="main" v-if="json.data.aqi>=201 && json.data.aqi <= 300">
+		Very Unhealthy
+		<span class="box vu">{{ json.data.aqi }}</span> 
+    <pre>ນະຄອນຫຼວງວຽງຈັນ</pre>
+    <pre>ອັບເດດຫຼ້າສຸດ: {{ json.data.time.s }}</pre>
+	</div>
+	<div class="main" v-if="json.data.aqi>=301 && json.data.aqi <= 500">
+		Hazardous
+		<span class="box h">{{ json.data.aqi }}</span> 
+    <pre>ນະຄອນຫຼວງວຽງຈັນ</pre>
+    <pre>ອັບເດດຫຼ້າສຸດ: {{ json.data.time.s }}</pre>
+	</div>
+
+    
+</div>
+
+<script type="text/javascript">
+new Vue({
+    el: '#app',
+    data: {
+        json: null
+    },
+    created: function () {
+      fetch("https://api.waqi.info/feed/vientiane/?token=535b8c0ed49e2babc4a52734b6acba823c4da53c")
+        .then(r => r.json())
+        .then(json => {
+          this.json=json;
+        });
+    }
+});
+</script>
+
+</body>
+</html>
